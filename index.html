@@ -760,25 +760,12 @@ function fmtCompact(value) {
   return fmtBRL(value).replace(',00', '');
 }
 
-const MAX_VALOR = 999999999.99;
-
 function parseAmount(value) {
   if (value == null) return NaN;
-  const s = String(value).trim().replace(/R\$|\s/g, '');
+  let s = String(value).trim().replace(/[R$\s]/g, '');
   if (!s) return NaN;
-  const sign = s.startsWith('-') ? -1 : 1;
-  const body = s.replace(/^-/, '');
-  let num;
-  if (/^\d{1,3}(\.\d{3})+(,\d{1,2})?$/.test(body)) {
-    num = body.replace(/\./g, '').replace(',', '.');      // 1.500 ou 1.500,75
-  } else if (/^\d+(,\d{1,2})?$/.test(body)) {
-    num = body.replace(',', '.');                          // 1500 ou 150,75
-  } else if (/^\d+\.\d{1,2}$/.test(body)) {
-    num = body;                                            // 150.75
-  } else {
-    return NaN;                                            // letras ou formato inválido
-  }
-  const n = sign * Number.parseFloat(num);
+  if (s.includes(',')) s = s.replace(/\./g, '').replace(',', '.');
+  const n = Number.parseFloat(s);
   return Number.isFinite(n) ? n : NaN;
 }
 
@@ -890,7 +877,7 @@ function dueLabel(iso) {
   return `Em ${diff} dias`;
 }
 
-return { MAX_VALOR, esc, uid, fmtBRL, fmtCompact, parseAmount, formatAmountInput, todayISO, currentMonth, monthOf, monthShort, monthLong, addMonths, lastMonths, monthRange, isoToBR, isoToBRFull, brToISO, maskDate, daysUntil, dueLabel };
+return { esc, uid, fmtBRL, fmtCompact, parseAmount, formatAmountInput, todayISO, currentMonth, monthOf, monthShort, monthLong, addMonths, lastMonths, monthRange, isoToBR, isoToBRFull, brToISO, maskDate, daysUntil, dueLabel };
 })();
 __m.icons = (function(){
 const ICONS = {
@@ -1322,7 +1309,6 @@ function cleanTx(payload, existingId) {
   const date = String(payload.date || '').slice(0, 10);
   if (!description) throw fail(400, 'BAD_DATA', 'Informe uma descrição.');
   if (!(amount > 0)) throw fail(400, 'BAD_DATA', 'Informe um valor válido.');
-  if (amount > 999999999.99) throw fail(400, 'BAD_DATA', 'Valor máximo permitido: R$ 999.999.999,99.');
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) throw fail(400, 'BAD_DATA', 'Data inválida.');
   const dueDate = type === 'expense' ? String(payload.dueDate || date).slice(0, 10) : date;
   return {
@@ -2251,7 +2237,6 @@ async function saveTransaction() {
 
   if (!description) { ui.toast('Informe uma descrição.', 'error'); return; }
   if (!(amount > 0)) { ui.toast('Informe um valor válido (ex: 150,75).', 'error'); return; }
-  if (amount > __m.util.MAX_VALOR) { ui.toast('Valor máximo permitido: R$ 999.999.999,99.', 'error'); return; }
   if (!date) { ui.toast('Informe a data.', 'error'); return; }
   if (tipo === 'expense' && !dueDate) {
     ui.toast('Informe o vencimento no formato DD/MM/AA.', 'error');

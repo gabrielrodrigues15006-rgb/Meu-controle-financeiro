@@ -1,0 +1,40 @@
+TAP version 13
+# Subtest: CT13 – valores válidos são lidos corretamente
+ok 1 - CT13 – valores válidos são lidos corretamente
+  ---
+  duration_ms: 1.079155
+  type: 'test'
+  ...
+# Subtest: CT13 – valores com letras ou formato inválido são rejeitados
+ok 2 - CT13 – valores com letras ou formato inválido são rejeitados
+  ---
+  duration_ms: 0.320592
+  type: 'test'
+  ...
+# Subtest: CT08 – valor negativo não é um valor positivo válido
+ok 3 - CT08 – valor negativo não é um valor positivo válido
+  ---
+  duration_ms: 0.163762
+  type: 'test'
+  ...
+# Subtest: CT13 – existe limite máximo de valor (NC03)
+ok 4 - CT13 – existe limite máximo de valor (NC03)
+  ---
+  duration_ms: 0.116514
+  type: 'test'
+  ...
+# Subtest: CT01 – e-mail com formato válido é aceito e inválido é rejeitado
+ok 5 - CT01 – e-mail com formato válido é aceito e inválido é rejeitado
+  ---
+  duration_ms: 0.227598
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 71.372047

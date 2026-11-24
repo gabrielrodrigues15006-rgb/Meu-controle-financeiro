@@ -1,0 +1,99 @@
+TAP version 13
+# Subtest: CT13 – valores válidos são lidos corretamente
+not ok 1 - CT13 – valores válidos são lidos corretamente
+  ---
+  duration_ms: 1.690707
+  type: 'test'
+  location: '/home/claude/proj/orig/tests/validation.test.js:39:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    1.5 !== 1500
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1500
+  actual: 1.5
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/home/claude/proj/orig/tests/validation.test.js:43:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: CT13 – valores com letras ou formato inválido são rejeitados
+not ok 2 - CT13 – valores com letras ou formato inválido são rejeitados
+  ---
+  duration_ms: 5.594464
+  type: 'test'
+  location: '/home/claude/proj/orig/tests/validation.test.js:47:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      assert.ok(Number.isNaN(parseAmount('10abc')))
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/home/claude/proj/orig/tests/validation.test.js:48:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: CT08 – valor negativo não é um valor positivo válido
+ok 3 - CT08 – valor negativo não é um valor positivo válido
+  ---
+  duration_ms: 0.201487
+  type: 'test'
+  ...
+# Subtest: CT13 – existe limite máximo de valor (NC03)
+not ok 4 - CT13 – existe limite máximo de valor (NC03)
+  ---
+  duration_ms: 0.465928
+  type: 'test'
+  location: '/home/claude/proj/orig/tests/validation.test.js:59:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    MAX_VALOR deve estar definido como 999.999.999,99
+    + actual - expected
+    
+    + undefined
+    - 999999999.99
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 999999999.99
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/home/claude/proj/orig/tests/validation.test.js:60:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: CT01 – e-mail com formato válido é aceito e inválido é rejeitado
+ok 5 - CT01 – e-mail com formato válido é aceito e inválido é rejeitado
+  ---
+  duration_ms: 0.247925
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 2
+# fail 3
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 83.873221
